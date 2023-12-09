@@ -1,22 +1,17 @@
-const db = require('./db');
+const { GraphQLObjectType } = require("graphql");
 
-const { 
-    GraphQLObjectType, 
-    GraphQLList,
-    GraphQLNonNull,
-    GraphQLID,
-} = require('graphql');
-
-
-const userQuery = require('./queries/user');
-const usersQuery = require('./queries/users');
+const userQuery = require("./queries/user/user");
+const usersQuery = require("./queries/user/users");
+const productsQuery = require("./queries/product/products");
 
 const queryType = new GraphQLObjectType({
-    name: 'Query',
-    fields: {
-      users: usersQuery,
-      user: userQuery,
-    }
-})
+  name: "Query",
+  fields: {
+    users: usersQuery,
+    user: userQuery,
+
+    products: productsQuery,
+  },
+});
 
 module.exports = queryType;

@@ -1,6 +1,7 @@
 {
   "development": {
     "dialect": "sqlite",
-    "storage": "./db.sqite"
+    "storage": "./db.sqite",
+    "transactionType": "IMMEDIATE"
   }
 }
