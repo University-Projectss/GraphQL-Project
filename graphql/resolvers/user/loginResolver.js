@@ -1,4 +1,6 @@
 const db = require("../../../models");
+const jwt = require("jsonwebtoken");
+const { secretKey } = require("../../config");
 
 const loginResolver = async (_, args, context) => {
   console.log(_);
@@ -16,7 +18,11 @@ const loginResolver = async (_, args, context) => {
 
   if (user) {
     return {
-      token: `1234567890:${user.id}`,
+      token: jwt.sign(
+        { id: user.id, name: user.name, email: user.email },
+        secretKey,
+        { expiresIn: "7d" }
+      ),
     };
   }
 

@@ -1,24 +1,36 @@
 const express = require("express");
 const { createHandler } = require("graphql-http/lib/use/express");
-
 const schema = require("./graphql");
-const db = require("./models");
+const jwt = require("jsonwebtoken");
+const { secretKey } = require("./graphql/config");
 
 const app = express();
 app.use(express.json());
 
 const checkAuthorization = async (req, res, next) => {
-  const { authorization } = req.headers;
+  const token = req.headers.authorization;
 
-  const userId = authorization.split(":")[1];
+  const { operationName } = req.body;
 
-  const user = await db.User.findOne({ where: { id: userId } });
+  if (operationName === "Login") {
+    return next();
+  }
 
-  req.auth = {
-    user,
-  };
+  if (!token) {
+    return res.status(401).json({ error: "Unauthorized: Missing token" });
+  }
 
-  next();
+  jwt.verify(token, secretKey, (err, decoded) => {
+    if (err) {
+      return res.status(401).json({ error: "Unauthorized: Invalid token" });
+    }
+
+    req.auth = {
+      user: decoded,
+    };
+
+    next();
+  });
 };
 
 app.all("/graphql", checkAuthorization, createHandler({ schema }));
