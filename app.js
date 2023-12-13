@@ -35,7 +35,7 @@ const checkAuthorization = async (req, res, next) => {
   });
 };
 
-app.all("/graphql", checkAuthorization, createHandler({ schema }));
+app.all("/graphql", createHandler({ schema }));
 
 async function start(port) {
   return new Promise((resolve) => app.listen({ port }, resolve));
