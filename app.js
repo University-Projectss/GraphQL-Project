@@ -11,10 +11,12 @@ const checkAuthorization = async (req, res, next) => {
   const token = req.headers.authorization;
 
   const { operationName } = req.body;
+  console.log(req.body);
+  console.log(operationName);
 
-  if (operationName === "Login") {
-    return next();
-  }
+  // if (operationName === "Login") {
+  return next();
+  // }
 
   if (!token) {
     return res.status(401).json({ error: "Unauthorized: Missing token" });
