@@ -7,16 +7,17 @@ const { secretKey } = require("./graphql/config");
 const app = express();
 app.use(express.json());
 
-const checkAuthorization = async (req, res, next) => {
+const checkAuthorization = (req, res, next) => {
   const token = req.headers.authorization;
 
   const { operationName } = req.body;
-  console.log(req.body);
-  console.log(operationName);
 
-  // if (operationName === "Login") {
-  return next();
-  // }
+  if (
+    operationName === "Login" ||
+    req.body.query.trim().startsWith("query Introspection")
+  ) {
+    return next();
+  }
 
   if (!token) {
     return res.status(401).json({ error: "Unauthorized: Missing token" });
@@ -35,7 +36,7 @@ const checkAuthorization = async (req, res, next) => {
   });
 };
 
-app.all("/graphql", createHandler({ schema }));
+app.all("/graphql", checkAuthorization, createHandler({ schema }));
 
 async function start(port) {
   return new Promise((resolve) => app.listen({ port }, resolve));
