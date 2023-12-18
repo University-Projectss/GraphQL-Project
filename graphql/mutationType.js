@@ -5,6 +5,8 @@ const updateUser = require("./mutations/user/updateUser");
 const deleteUser = require("./mutations/user/deleteUser");
 const login = require("./mutations/user/login");
 const createProduct = require("./mutations/product/createProduct");
+const createReview = require("./mutations/review/createReview");
+const deleteReview = require("./mutations/review/deleteReview");
 
 const mutationType = new GraphQLObjectType({
   name: "Mutation",
@@ -15,6 +17,9 @@ const mutationType = new GraphQLObjectType({
     login: login,
 
     createProduct: createProduct,
+
+    createReview: createReview,
+    deleteReview: deleteReview,
   },
 });
 
