@@ -3,9 +3,6 @@ const jwt = require("jsonwebtoken");
 const { secretKey } = require("../../config");
 
 const loginResolver = async (_, args, context) => {
-  console.log(_);
-  console.log(args);
-  console.log(context);
 
   const { email, password } = args;
 
