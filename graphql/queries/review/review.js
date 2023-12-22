@@ -1,7 +1,8 @@
 const db = require("../../../models");
 
-const { GraphQLNonNull, GraphQLID, GraphQLList } = require("graphql");
+const { GraphQLNonNull, GraphQLID } = require("graphql");
 const ReviewType = require("../../types/review/reviewType");
+const { checkValidUser } = require("../../utils");
 
 const reviewQuery = {
   type: ReviewType,
@@ -10,8 +11,12 @@ const reviewQuery = {
       type: new GraphQLNonNull(GraphQLID),
     },
   },
-  resolve: (_, args) => {
+  resolve: (_, args, context) => {
+    const user = context.req.raw.user;
     const { id } = args;
+
+    checkValidUser(user);
+
     return db.review.findByPk(id);
   },
 };

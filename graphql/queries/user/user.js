@@ -1,8 +1,9 @@
 const db = require("../../../models");
 
-const { GraphQLNonNull, GraphQLID, GraphQLList } = require("graphql");
+const { GraphQLNonNull, GraphQLID } = require("graphql");
 
 const UserType = require("../../types/user/userType");
+const { checkValidUser } = require("../../utils");
 
 const userQuery = {
   type: UserType,
@@ -11,8 +12,12 @@ const userQuery = {
       type: new GraphQLNonNull(GraphQLID),
     },
   },
-  resolve: (_, args) => {
+  resolve: (_, args, context) => {
+    const user = context.req.raw.user;
     const { id } = args;
+
+    checkValidUser(user);
+
     return db.User.findByPk(id);
   },
 };

@@ -10,33 +10,42 @@ app.use(express.json());
 const checkAuthorization = (req, res, next) => {
   const token = req.headers.authorization;
 
-  const { operationName } = req.body;
-
-  if (
-    operationName === "Login" ||
-    req.body.query.trim().startsWith("query Introspection")
-  ) {
-    return next();
-  }
-
   if (!token) {
-    return res.status(401).json({ error: "Unauthorized: Missing token" });
+    req.user = null;
+    return next();
   }
 
   jwt.verify(token, secretKey, (err, decoded) => {
     if (err) {
-      return res.status(401).json({ error: "Unauthorized: Invalid token" });
+      req.user = null;
+      return next();
     }
 
-    req.auth = {
-      user: decoded,
-    };
-
+    req.user = decoded;
     next();
   });
 };
 
-app.all("/graphql", checkAuthorization, createHandler({ schema }));
+app.all(
+  "/graphql",
+  checkAuthorization,
+  createHandler({
+    schema,
+    context: (req) => ({
+      req,
+    }),
+  })
+);
+
+// // Define the error handling middleware
+// app.use((err, req, res, next) => {
+//   if (err.message === "Unauthorized") {
+//     res.status(401).send("Unauthorized");
+//   } else {
+//     console.error(err);
+//     res.status(500).send("Internal Server Error");
+//   }
+// });
 
 async function start(port) {
   return new Promise((resolve) => app.listen({ port }, resolve));

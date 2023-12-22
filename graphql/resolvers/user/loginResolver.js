@@ -1,10 +1,13 @@
 const db = require("../../../models");
 const jwt = require("jsonwebtoken");
 const { secretKey } = require("../../config");
+const { checkValidUser } = require("../../utils");
 
 const loginResolver = async (_, args, context) => {
-
+  const bigUser = context.req.raw.user;
   const { email, password } = args;
+
+  checkValidUser(bigUser);
 
   const user = await db.User.findOne({
     where: {
