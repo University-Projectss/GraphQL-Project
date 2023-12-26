@@ -8,6 +8,8 @@ const reviewsQuery = require("./queries/review/reviews");
 const reviewQuery = require("./queries/review/review");
 const orderQuery = require("./queries/order/order");
 const ordersQuery = require("./queries/order/orders");
+const basketQuery = require("./queries/basket/basket");
+const basketsQuery = require("./queries/basket/baskets");
 
 const queryType = new GraphQLObjectType({
   name: "Query",
@@ -23,6 +25,9 @@ const queryType = new GraphQLObjectType({
 
     order: orderQuery,
     orders: ordersQuery,
+
+    basket: basketQuery,
+    baskets: basketsQuery,
   },
 });
 
