@@ -9,7 +9,7 @@ const createBasketResolver = async (_, basket) => {
     for(let i = 0; i<productTypeCount; i++) {
         console.log('i', i, 'products[i]', products[i], 'productsQuantity[i]', productsQuantity[i], 'productsPrice[i]', productsPrice[i])
         await db.BasketProduct.create({
-            orderId: id,
+            basketId: id,
             productId: products[i],
             productName: productsName[i],
             quantity: productsQuantity[i],

@@ -7,7 +7,7 @@ const {
 const BasketProductType = new GraphQLObjectType({
     name: 'BasketProduct',
     fields: {
-        orderId: { type: GraphQLID },
+        basketId: { type: GraphQLID },
         productId: { type: GraphQLID },
         productName: { type: GraphQLString },
         price: { type: GraphQLInt },
