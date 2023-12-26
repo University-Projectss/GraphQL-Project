@@ -6,6 +6,8 @@ const {
     GraphQLFloat,
 } = require('graphql');
 
+const ProductType = require('../product/productType');
+
 const BasketType = new GraphQLObjectType({
     name: 'Basket',
     fields: {
@@ -13,6 +15,13 @@ const BasketType = new GraphQLObjectType({
         clientId: { type: GraphQLID },
         voucher: { type: GraphQLString },
         price: { type: GraphQLFloat },
+        products: { 
+            type: new GraphQLList(ProductType) ,
+            resolve: async (basket) => {
+                const products = await basket.getProducts();
+                return products;
+            }
+        },
     }
 });
 

@@ -1,6 +1,6 @@
 const { validate } = require('graphql');
 const db = require('../../../models');
-const { getProductPrice, getProductName, validateQuantity } = require('../../utils');
+const { getProductPrice, getProductName, validateQuantity, getProductDescription } = require('../../utils');
 
 const createBasketResolver = async (_, basket) => {
     console.log(basket);
@@ -19,7 +19,6 @@ const createBasketResolver = async (_, basket) => {
     for(let i = 0; i<productTypeCount; i++) {
         productPrice = await getProductPrice(products[i]);
         total = total + (productsQuantity[i] * productPrice);
-
         await db.BasketProduct.create({
             basketId: id,
             productId: products[i],

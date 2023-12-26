@@ -33,6 +33,11 @@ const getProductQuantity = async (productId) => {
   return product.quantity;
 }
 
+const getProductDescription = async (productId) => {
+  const product = await getProduct(productId);
+  return product.description;
+}
+
 const validateQuantity = async (productId, wantedQuantity) => {
   const productQuantity = await getProductQuantity(productId);
   if (productQuantity < wantedQuantity) {
@@ -40,4 +45,4 @@ const validateQuantity = async (productId, wantedQuantity) => {
   }
 }
 
-module.exports = { checkValidUser, getProductPrice, getProductName, validateQuantity };
+module.exports = { checkValidUser, getProductPrice, getProductName, validateQuantity, getProductDescription };

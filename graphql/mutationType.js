@@ -9,6 +9,7 @@ const createReview = require("./mutations/review/createReview");
 const deleteReview = require("./mutations/review/deleteReview");
 const createOrder = require("./mutations/order/createOrder.js");
 const createBasket = require("./mutations/basket/createBasket.js");
+const deleteBasket = require("./mutations/basket/deleteBasket");
 
 const mutationType = new GraphQLObjectType({
   name: "Mutation",
@@ -26,6 +27,7 @@ const mutationType = new GraphQLObjectType({
     createOrder: createOrder,
 
     createBasket: createBasket,
+    deleteBasket: deleteBasket,
   },
 });
 
