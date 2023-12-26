@@ -17,7 +17,7 @@ const OrderProductType = new GraphQLObjectType({
     price: {
       type: GraphQLInt,
     },
-    amount: {
+    quantity: {
       type: GraphQLInt,
     },
 

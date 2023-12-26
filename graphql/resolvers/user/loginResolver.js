@@ -7,7 +7,7 @@ const loginResolver = async (_, args, context) => {
   const bigUser = context.req.raw.user;
   const { email, password } = args;
 
-  checkValidUser(bigUser);
+  //checkValidUser(bigUser);
 
   const user = await db.User.findOne({
     where: {
