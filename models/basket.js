@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Basket.init({
-    clientId: DataTypes.INTEGER,
+    userId: DataTypes.INTEGER,
     voucher: DataTypes.STRING,
     price: DataTypes.FLOAT
   }, {
