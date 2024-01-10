@@ -7,6 +7,12 @@ module.exports = {
     const users = usersQuery[0];
     const productsQuery = await queryInterface.sequelize.query('SELECT id, price FROM Products');
     const products = productsQuery[0];
+    const basketQuery = await queryInterface.sequelize.query('SELECT id FROM Baskets');
+    const baskets = basketQuery[0];
+    const lastBasketId = baskets.length > 0 ? baskets[baskets.length - 1].id : 0;
+
+
+    let basketId = lastBasketId + 1;
     for(let user of users) {
       const basketProducts = [];
       const productsCount = Math.floor(Math.random() * 4) + 1;
@@ -15,7 +21,7 @@ module.exports = {
         const product = products[Math.floor(Math.random() * products.length)];
         basketProducts.push({
           productId: product.id,
-          basketId: user.id,
+          basketId: basketId,
           quantity: Math.floor(Math.random() * 4) + 1,
           price: product.price,
           createdAt: new Date(),
@@ -32,6 +38,8 @@ module.exports = {
         updatedAt: new Date(),
       };
       await queryInterface.bulkInsert('Baskets', [basket], {});
+
+      basketId++;
 
     }
   },
