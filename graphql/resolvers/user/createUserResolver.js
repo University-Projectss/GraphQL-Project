@@ -4,7 +4,7 @@ const { checkValidUser } = require("../../utils");
 const createUserResolver = async (_, { user }, context) => {
   const bigUser = context.req.raw.user;
   const { name, email, password } = user;
-  checkValidUser(bigUser);
+  // checkValidUser(bigUser);
 
   try {
     const newUser = await db.User.create({
