@@ -13,7 +13,7 @@ const ReviewInputType = new GraphQLInputObjectType({
     productId: {
       type: new GraphQLNonNull(GraphQLID),
     },
-    clientId: {
+    userId: {
       type: new GraphQLNonNull(GraphQLID),
     },
     rating: {

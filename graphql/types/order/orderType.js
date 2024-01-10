@@ -12,7 +12,7 @@ const OrderType = new GraphQLObjectType({
     id: {
       type: GraphQLID,
     },
-    clientId: {
+    userId: {
         type: GraphQLID,
     },
     date: {

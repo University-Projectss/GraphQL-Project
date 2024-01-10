@@ -15,7 +15,7 @@ const ReviewType = new GraphQLObjectType({
     productId: {
       type: GraphQLID,
     },
-    clientId: {
+    userId: {
       type: GraphQLID,
     },
     rating: {

@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Basket.hasMany(models.BasketProduct, {as: 'products'});
+      Basket.belongsTo(models.User);
     }
   }
   Basket.init({
