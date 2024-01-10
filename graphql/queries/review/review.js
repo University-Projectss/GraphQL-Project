@@ -17,7 +17,7 @@ const reviewQuery = {
 
     checkValidUser(user);
 
-    return db.review.findByPk(id);
+    return db.Review.findByPk(id);
   },
 };
 
